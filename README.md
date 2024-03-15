@@ -2,7 +2,7 @@
 
 After a while since the release of the first version the [Fokus](https://github.com/daraperini/learning-javascript-fokus) project gained a new version during Alura's class *JavaScrit in the Web: storing data in the browser*. In this version I created a CRUD that allowed me to develop a task list. The tasks can be added, selected as 'current task', marked as resolved and deleted as needed. Besides using Local Storage you won't lose you task list in the case you decide to close the tab!
 
-The project is beeing refactorated during Alura's class *TypeScript: the functional paradigm in front-end*. The goal is to apply TypeScript in the code so to dive deep into this language. You can see the project's evolution on the *focus-ts* folder.
+The project is beeing refactorated during Alura's class *TypeScript: the functional paradigm on front-end*. The goal is to apply TypeScript in the code so to dive deep into this language. You can see the project's evolution on the *focus-ts* folder.
 
 > In progress...
 
