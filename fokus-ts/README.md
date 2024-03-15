@@ -1,6 +1,6 @@
 # Fokus - Tasks (New Fokus Version) - TypeScript
 
-This is the repository with Fokus' TypeScript version developed during Alura's class *TypeScript: the functional paradigm on the front end*. 
+This is the repository with Fokus' TypeScript version developed during Alura's class *TypeScript: the functional paradigm on front end*. 
 
 > In progress...
 
