@@ -1,21 +1,8 @@
 "use strict";
 let estadoInicial = {
-    tarefas: [
-        {
-            descricao: 'Tarefa concluída',
-            concluida: true
-        },
-        {
-            descricao: 'Tarefa pendente 1',
-            concluida: false
-        },
-        {
-            descricao: 'Tarefa pendente 2',
-            concluida: false
-        }
-    ],
+    tarefas: [],
     tarefaSelecionada: null,
-    editando: false
+    editando: false,
 };
 const selecionarTarefa = (estado, tarefa) => {
     return Object.assign(Object.assign({}, estado), { tarefaSelecionada: tarefa === estado.tarefaSelecionada ? null : tarefa });
@@ -26,7 +13,7 @@ const adicionarTarefa = (estado, tarefa) => {
 // Deleta uma tarefa. Retorna um novo estado.
 const deletar = (estado) => {
     if (estado.tarefaSelecionada) {
-        const tarefas = estado.tarefas.filter(tarefa => tarefa != estado.tarefaSelecionada);
+        const tarefas = estado.tarefas.filter((tarefa) => tarefa != estado.tarefaSelecionada);
         return Object.assign(Object.assign({}, estado), { tarefas, tarefaSelecionada: null, editando: false });
     }
     else {
@@ -39,7 +26,7 @@ const deletarTodas = (estado) => {
 };
 // Deleta todas as tarefas concluídas. Retorna um novo estado.
 const deletarTodasConcluidas = (estado) => {
-    const tarefas = estado.tarefas.filter(tarefa => !tarefa.concluida);
+    const tarefas = estado.tarefas.filter((tarefa) => !tarefa.concluida);
     return Object.assign(Object.assign({}, estado), { tarefas, tarefaSelecionada: null, editando: false });
 };
 // Modifica o estado para entrar no modo de edição. Retorna um novo estado.
@@ -56,45 +43,47 @@ const atualizarUI = () => {
               fill="#01080E" />
       </svg>
   `;
-    const ulTarefas = document.querySelector('.app__section-task-list');
-    const formAdicionarTarefa = document.querySelector('.app__form-add-task');
-    const btnAdicionarTarefa = document.querySelector('.app__button--add-task');
-    const textarea = document.querySelector('.app__form-textarea');
-    const labelTarefaAtiva = document.querySelector('.app__section-active-task-description');
-    const btnCancelar = document.querySelector('.app__form-footer__button--cancel');
-    const btnDeletar = document.querySelector('.app__form-footer__button--delete');
-    const btnDeletarConcluidas = document.querySelector('#btn-remover-concluidas');
-    const btnDeletarTodas = document.querySelector('#btn-remover-todas');
-    labelTarefaAtiva.textContent = estadoInicial.tarefaSelecionada ? estadoInicial.tarefaSelecionada.descricao : null;
+    const ulTarefas = document.querySelector(".app__section-task-list");
+    const formAdicionarTarefa = document.querySelector(".app__form-add-task");
+    const btnAdicionarTarefa = document.querySelector(".app__button--add-task");
+    const textarea = document.querySelector(".app__form-textarea");
+    const labelTarefaAtiva = document.querySelector(".app__section-active-task-description");
+    const btnCancelar = document.querySelector(".app__form-footer__button--cancel");
+    const btnDeletar = document.querySelector(".app__form-footer__button--delete");
+    const btnDeletarConcluidas = document.querySelector("#btn-remover-concluidas");
+    const btnDeletarTodas = document.querySelector("#btn-remover-todas");
+    labelTarefaAtiva.textContent = estadoInicial.tarefaSelecionada
+        ? estadoInicial.tarefaSelecionada.descricao
+        : null;
     if (estadoInicial.editando && estadoInicial.tarefaSelecionada) {
-        formAdicionarTarefa.classList.remove('hidden');
+        formAdicionarTarefa.classList.remove("hidden");
         textarea.value = estadoInicial.tarefaSelecionada.descricao;
     }
     else {
-        formAdicionarTarefa.classList.add('hidden');
-        textarea.value = '';
+        formAdicionarTarefa.classList.add("hidden");
+        textarea.value = "";
     }
     if (!btnAdicionarTarefa) {
         throw Error("Caro colega, o elemento btnAdicionarTarefa não foi encontrado. Favor rever.");
     }
     btnAdicionarTarefa.onclick = () => {
-        formAdicionarTarefa === null || formAdicionarTarefa === void 0 ? void 0 : formAdicionarTarefa.classList.toggle('hidden');
+        formAdicionarTarefa === null || formAdicionarTarefa === void 0 ? void 0 : formAdicionarTarefa.classList.toggle("hidden");
     };
     formAdicionarTarefa.onsubmit = (evento) => {
         evento.preventDefault();
         const descricao = textarea.value;
         estadoInicial = adicionarTarefa(estadoInicial, {
             descricao,
-            concluida: false
+            concluida: false,
         });
         atualizarUI();
     };
     btnCancelar.onclick = () => {
-        formAdicionarTarefa.classList.add('hidden');
+        formAdicionarTarefa.classList.add("hidden");
     };
     btnDeletar.onclick = () => {
         estadoInicial = deletar(estadoInicial);
-        formAdicionarTarefa.classList.add('hidden');
+        formAdicionarTarefa.classList.add("hidden");
         atualizarUI();
     };
     btnDeletarConcluidas.onclick = () => {
@@ -106,33 +95,33 @@ const atualizarUI = () => {
         atualizarUI();
     };
     if (ulTarefas) {
-        ulTarefas.innerHTML = '';
+        ulTarefas.innerHTML = "";
     }
-    estadoInicial.tarefas.forEach(tarefa => {
-        const li = document.createElement('li');
-        li.classList.add('app__section-task-list-item');
-        const svgIcon = document.createElement('svg');
+    estadoInicial.tarefas.forEach((tarefa) => {
+        const li = document.createElement("li");
+        li.classList.add("app__section-task-list-item");
+        const svgIcon = document.createElement("svg");
         svgIcon.innerHTML = taskIconSvg;
-        const paragraph = document.createElement('p');
-        paragraph.classList.add('app__section-task-list-item-description');
+        const paragraph = document.createElement("p");
+        paragraph.classList.add("app__section-task-list-item-description");
         paragraph.textContent = tarefa.descricao;
-        const button = document.createElement('button');
-        button.classList.add('app_button-edit');
-        const editIcon = document.createElement('img');
-        editIcon.setAttribute('src', '/imagens/edit.png');
+        const button = document.createElement("button");
+        button.classList.add("app_button-edit");
+        const editIcon = document.createElement("img");
+        editIcon.setAttribute("src", "/imagens/edit.png");
         button.appendChild(editIcon);
         if (tarefa.concluida) {
-            button.setAttribute('disabled', 'true');
-            li.classList.add('app__section-task-list-item-complete');
+            button.setAttribute("disabled", "true");
+            li.classList.add("app__section-task-list-item-complete");
         }
         if (tarefa == estadoInicial.tarefaSelecionada) {
-            li.classList.add('app__section-task-list-item-active');
+            li.classList.add("app__section-task-list-item-active");
         }
         li.appendChild(svgIcon);
         li.appendChild(paragraph);
         li.appendChild(button);
-        li.addEventListener('click', () => {
-            console.log('A tarefa foi clicada', tarefa);
+        li.addEventListener("click", () => {
+            console.log("A tarefa foi clicada", tarefa);
             estadoInicial = selecionarTarefa(estadoInicial, tarefa);
             atualizarUI();
         });
@@ -145,7 +134,7 @@ const atualizarUI = () => {
         ulTarefas === null || ulTarefas === void 0 ? void 0 : ulTarefas.appendChild(li);
     });
 };
-document.addEventListener('TarefaFinalizada', () => {
+document.addEventListener("TarefaFinalizada", () => {
     if (estadoInicial.tarefaSelecionada) {
         estadoInicial.tarefaSelecionada.concluida = true;
         atualizarUI();
